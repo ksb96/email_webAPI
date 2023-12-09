@@ -7,6 +7,7 @@ import org.apache.logging.log4j.message.Message;
 import org.springframework.boot.rsocket.server.RSocketServer.Transport;
 import org.springframework.stereotype.Service;
 
+import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -34,12 +35,13 @@ public class EmailService {
 		properties.put("mail.smtp.port", "465");
 		properties.put("mail.smtp.ssl.enable", "true");
 		properties.put("mail.smtp.auth", "true");
-
+//		.getInstance(properties, new Authenticator()
 		// Step 1: to get the session object..
-		Session session = Session.getInstance(properties, new Authenticator() {
+		Session session = Session.getInstance(properties, new Authenticator()) {
+			
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("techsoftindia2018@gmail.com", "Durgesh@123");
+				return new PasswordAuthentication("royritesh102@gmail.com", "");
 			}
 
 		});
