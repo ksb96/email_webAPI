@@ -4,11 +4,13 @@ public class EmailRequest {
 	private String to;
 	private String subject;
 	private String message;
+	private String from;
 
-	public EmailRequest(String to, String subject, String message) {
+	public EmailRequest(String to, String subject, String message, String from) {
 		this.to = to;
 		this.subject = subject;
 		this.message = message;
+		this.from = from;
 	}
 
 	public EmailRequest() {
@@ -37,6 +39,14 @@ public class EmailRequest {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
 	}
 
 	@Override

@@ -13,70 +13,69 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
 @Service
-public class EmailService {
+public class EmailService<Transport> {
 	// this is responsible to send email..
-	public boolean sendEmail(String message, String subject, String to) {
+	public boolean sendEmail(String message, String subject, String to, String from) {
 
 		//const
-		String from = "royritesh102@gmail.com";
+//		String from = "royritesh102@gmail.com";
 		
 		Boolean status = false;
 		// Variable for gmail
 		String host = "smtp.gmail.com";
 
-		// get the system properties
+		// SMTP properties
 		Properties properties = System.getProperties();
 		System.out.println("PROPERTIES " + properties);
 
-		// setting important information to properties object
-
-		// host set
 		properties.put("mail.smtp.host", host);
+		properties.put("mail.smtp.starttls.enable",true);
 		properties.put("mail.smtp.port", "465");
 		properties.put("mail.smtp.ssl.enable", "true");
 		properties.put("mail.smtp.auth", "true");
-//		.getInstance(properties, new Authenticator()
+		
+		String username ="royritesh102";
+		String password="";
+		
+//		Session.getInstance(properties, new Authenticator() {
+//			@Override
+//			protected java.net.PasswordAuthentication getPasswordAuthentication(){
+//				return super.getPasswordAuthentication(user,password);
+//			}
+//		});
+		
 		// Step 1: to get the session object..
-		Session session = Session.getInstance(properties, new Authenticator()) {
-			
-			@Override
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("royritesh102@gmail.com", "");
-			}
-
-		});
-
-		session.setDebug(true);
-
-		// Step 2 : compose the message [text,multi media]
-		MimeMessage m = new MimeMessage(session);
-
-		try {
-
+        Session session = Session.getInstance(properties);
+        Authenticator authenticator = new Authenticator() {
+        	@Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        };
+        
+        try {
+    		MimeMessage m = new MimeMessage(session);
 			// from email
-			m.setFrom(from);
-
+			m.setFrom(new InternetAddress(from));
 			// adding recipient to message
-			m.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
+			m.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(to));
 			// adding subject to message
 			m.setSubject(subject);
-
 			// adding text to message
 			m.setText(message);
 
-			// send
-
-			// Step 3 : send the message using Transport class
+			//send
 			Transport.send(m);
-
-			System.out.println("Sent success...................");
 			status=true;
+			System.out.println("Sent success...................");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return status;
+        
+//		session.setDebug(true);
+//
+//		return status;
 
 	}
 //		}

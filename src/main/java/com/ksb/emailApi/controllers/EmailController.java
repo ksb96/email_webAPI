@@ -22,7 +22,7 @@ public class EmailController {
 	public ResponseEntity<?> sendEmail(@RequestBody EmailRequest request){
 
 		System.out.println(request);
-		boolean result = this.emailService.sendEmail(request.getSubject(), request.getMessage(), request.getTo());
+		boolean result = this.emailService.sendEmail(request.getSubject(), request.getMessage(), request.getTo(), request.getFrom());
 		if(result) {
 			return ResponseEntity.ok("successful");
 		}else {
