@@ -20,10 +20,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/jakarta.mail/jakarta.mail-api -->
+
+		<!-- 
+		<https://mvnrepository.com/artifact/jakarta.mail/jakarta.mail-api>
 		<dependency>
     		<groupId>jakarta.mail</groupId>
     		<artifactId>jakarta.mail-api</artifactId>
@@ -35,6 +37,7 @@
 			<artifactId>jakarta.mail</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		 -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
